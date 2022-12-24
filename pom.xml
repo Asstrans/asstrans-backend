@@ -14,7 +14,7 @@
 	<name>agremiados</name>
 	<description>Projeto Asstrans </description>
 	<properties>
-		<java.version>13</java.version>
+		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
 	</properties>
 	<dependencies>
