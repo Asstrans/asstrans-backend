@@ -1,6 +1,6 @@
 package com.asstrans.agremiados.services;
 
-import com.asstrans.agremiados.dto.ConvenioDto;
+import com.asstrans.agremiados.dto.RequisicaoDto;
 import com.asstrans.agremiados.model.Requisicao;
 
 public interface RequisicaoService {
