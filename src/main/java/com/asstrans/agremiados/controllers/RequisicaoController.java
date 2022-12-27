@@ -8,4 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/requisicoes")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class RequisicaoController {
+
+
 }
