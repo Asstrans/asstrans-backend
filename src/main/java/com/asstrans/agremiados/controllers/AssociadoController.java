@@ -24,7 +24,7 @@ public class AssociadoController {
     @GetMapping
     public ResponseEntity<Page<Associado>> findAll(SpecificationTemplate.AssociadoSpec spec,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(associadoService.findAll(spec,pageable));
+        return ResponseEntity.ok().body(associadoService.findActiveAll(spec,pageable));
     }
 
     @PostMapping

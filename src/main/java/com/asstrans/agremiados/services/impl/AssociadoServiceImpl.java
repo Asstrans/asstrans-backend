@@ -4,6 +4,7 @@ package com.asstrans.agremiados.services.impl;
 import com.asstrans.agremiados.dto.AssociadoDto;
 import com.asstrans.agremiados.mapper.AssociadoMapper;
 import com.asstrans.agremiados.model.Associado;
+import com.asstrans.agremiados.model.Convenio;
 import com.asstrans.agremiados.repositories.AssociadoRepository;
 import com.asstrans.agremiados.services.AssociadoService;
 
@@ -27,6 +28,11 @@ public class AssociadoServiceImpl implements AssociadoService {
     @Override
     public Page<Associado> findAll(Specification<Associado> spec, Pageable pageable) {
         return associadoRepository.findAll(spec, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Associado> findActiveAll(Specification<Associado> spec, Pageable pageable){
+        return associadoRepository.findActiveAll(spec, pageable);
     }
 
     @Transactional()
