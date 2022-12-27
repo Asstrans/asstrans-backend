@@ -27,6 +27,18 @@ public class ConvenioServiceImpl implements ConvenioService {
         return convenioRepository.findAll(spec, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable){
+        return convenioRepository.findActiveAll(spec, pageable);
+    }
+
+
+
+    @Override
+    public Convenio findById(Long id) {
+        return convenioRepository.findById(id).get();
+    }
+
     @Transactional()
     public ConvenioDto save(ConvenioDto convenioDto){
         var convenio = convenioMapper.toConvenio(convenioDto);

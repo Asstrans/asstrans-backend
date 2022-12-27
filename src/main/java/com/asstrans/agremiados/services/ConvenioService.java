@@ -8,6 +8,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 public interface ConvenioService {
     public Page<Convenio> findAll(Specification<Convenio> spec, Pageable pageable);
+    public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable);
+
+    public Convenio findById(Long id);
     public ConvenioDto save(ConvenioDto convenioDto);
     public ConvenioDto update(Long id, ConvenioDto conveniodto);
 

@@ -24,12 +24,17 @@ public class ConvenioController {
     @GetMapping
     public ResponseEntity<Page<Convenio>> findAll(SpecificationTemplate.ConvenioSpec spec,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(convenioService.findAll(spec,pageable));
+        return ResponseEntity.ok().body(convenioService.findActiveAll(spec,pageable));
     }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody ConvenioDto convenioDto) {
         return ResponseEntity.ok().body(convenioService.save(convenioDto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Convenio> findById(@PathVariable("id")Long id) {
+        return ResponseEntity.ok().body(convenioService.findById(id));
     }
 
     @PutMapping("/{id}")
