@@ -21,7 +21,6 @@ public class RequisicaoServiceImpl implements RequisicaoService {
     @Autowired
     private ConvenioRepository convenioRepository;
 
-
     @Override
     public Requisicao save(RequisicaoDto requisicaoDto) {
         var associado = associadoRepository.findById(requisicaoDto.getAssociadoId());

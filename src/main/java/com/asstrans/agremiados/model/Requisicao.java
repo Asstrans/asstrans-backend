@@ -15,7 +15,7 @@ public class Requisicao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Associado associado;
 
