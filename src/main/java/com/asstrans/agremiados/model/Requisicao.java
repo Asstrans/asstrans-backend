@@ -1,5 +1,7 @@
 package com.asstrans.agremiados.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,6 +15,14 @@ public class Requisicao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Associado associado;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Convenio convenio;
+
 
     public Long getId() {
         return id;
@@ -20,5 +30,21 @@ public class Requisicao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Associado getAssociado() {
+        return associado;
+    }
+
+    public void setAssociado(Associado associado) {
+        this.associado = associado;
+    }
+
+    public Convenio getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
     }
 }

@@ -1,8 +1,13 @@
 package com.asstrans.agremiados.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "TB_ASSOCIADOS")
@@ -30,6 +35,12 @@ public class Associado implements Serializable {
     private BigDecimal salarioBase;
 
     private Boolean isActive;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "associado", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<Requisicao> requisicoes;
+
 
     public Associado(){
         this.isActive = true;
@@ -107,4 +118,14 @@ public class Associado implements Serializable {
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+    public Set<Requisicao> getRequisicoes() {
+        return requisicoes;
+    }
+
+    public void setRequisicoes(Set<Requisicao> requisicoes) {
+        this.requisicoes = requisicoes;
+    }
+
+
 }

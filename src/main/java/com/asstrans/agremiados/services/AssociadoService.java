@@ -15,7 +15,7 @@ public interface AssociadoService {
     public Associado findById(Long id);
 
     public Associado save(Associado associado);
-    
+
     public AssociadoDto update(Long id, AssociadoDto associadoDto);
 
     public void delete(Long id);
