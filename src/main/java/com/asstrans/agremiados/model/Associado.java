@@ -1,5 +1,6 @@
 package com.asstrans.agremiados.model;
 
+import com.asstrans.agremiados.enums.ZoneCity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,6 +28,9 @@ public class Associado implements Serializable {
     private String rg;
 
     private String cpf;
+
+    @Enumerated(EnumType.STRING)
+    private ZoneCity zoneCity;
 
     private String setor;
 
@@ -127,5 +131,11 @@ public class Associado implements Serializable {
         this.requisicoes = requisicoes;
     }
 
+    public ZoneCity getZoneCity() {
+        return zoneCity;
+    }
 
+    public void setZoneCity(ZoneCity zoneCity) {
+        this.zoneCity = zoneCity;
+    }
 }

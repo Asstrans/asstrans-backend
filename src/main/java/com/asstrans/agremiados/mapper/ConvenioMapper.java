@@ -11,8 +11,4 @@ public interface ConvenioMapper {
 
     ConvenioDto toConvenioDto(Convenio convenio);
 
-    ConvenioDto toConvenioDto(ConvenioDto convenioDto);
-
-
-    Convenio toConvenio(Convenio convenio);
 }

@@ -22,9 +22,6 @@ public class Convenio implements Serializable {
     @Column(nullable = false, length = 250)
     private String cnpj;
 
-    @Enumerated(EnumType.STRING)
-    private ZoneCity zoneCity;
-
     private String stateResgistration;
 
     private String municipalResgistration;
@@ -72,13 +69,6 @@ public class Convenio implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public ZoneCity getZoneCity() {
-        return zoneCity;
-    }
-
-    public void setZoneCity(ZoneCity zoneCity) {
-        this.zoneCity = zoneCity;
-    }
 
     public String getStateResgistration() {
         return stateResgistration;
