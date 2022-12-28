@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConvenioRepository extends JpaRepository<Convenio, Long>, JpaSpecificationExecutor<Convenio> {
 
-    @Query(value = "SELECT * FROM TB_CONVENIOS WHERE IS_ACTIVE = true", nativeQuery = true)
+   // @Query(value = "SELECT * FROM TB_CONVENIOS WHERE IS_ACTIVE = true", nativeQuery = true)
+    @Query(value = "select c from Convenio c where c.isActive = true")
     public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable);
 }

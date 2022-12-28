@@ -24,7 +24,7 @@ public class ConvenioController {
     @GetMapping
     public ResponseEntity<Page<Convenio>> findAll(SpecificationTemplate.ConvenioSpec spec,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(convenioService.findActiveAll(spec,pageable));
+        return ResponseEntity.ok().body(convenioService.findAll(spec,pageable));
     }
 
     @PostMapping

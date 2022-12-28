@@ -27,11 +27,11 @@ public class ConvenioServiceImpl implements ConvenioService {
         return convenioRepository.findAll(spec, pageable);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable){
         return convenioRepository.findActiveAll(spec, pageable);
     }
-
 
 
     @Override
