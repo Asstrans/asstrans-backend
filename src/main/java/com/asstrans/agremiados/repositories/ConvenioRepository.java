@@ -15,4 +15,7 @@ public interface ConvenioRepository extends JpaRepository<Convenio, Long>, JpaSp
    // @Query(value = "SELECT * FROM TB_CONVENIOS WHERE IS_ACTIVE = true", nativeQuery = true)
     @Query(value = "select c from Convenio c where c.isActive = true")
     public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable);
+
+    @Query(value = "select c from Convenio c where c.isActive = true and c.fantasyName like %?1% ")
+    public Page<Convenio> findAllSearch(String search, Pageable pageable);
 }

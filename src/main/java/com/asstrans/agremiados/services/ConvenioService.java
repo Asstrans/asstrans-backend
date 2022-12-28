@@ -12,6 +12,8 @@ public interface ConvenioService {
 
     public Page<Convenio> findActiveAll(Specification<Convenio> spec, Pageable pageable);
 
+    public Page<Convenio> findAllSearch(String search, Pageable pageable);
+
     public Convenio findById(Long id);
 
     public ConvenioDto save(ConvenioDto convenioDto);

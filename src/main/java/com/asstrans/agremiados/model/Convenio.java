@@ -47,10 +47,10 @@ public class Convenio implements Serializable {
 
     private Boolean isActive;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    private Set<Requisicao> requisicoes;
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SUBSELECT)
+//    private Set<Requisicao> requisicoes;
 
     public Convenio() {
         this.isActive = true;
@@ -167,12 +167,12 @@ public class Convenio implements Serializable {
     public void setActive(Boolean active) {
         isActive = active;
     }
-
-    public Set<Requisicao> getRequisicoes() {
-        return requisicoes;
-    }
-
-    public void setRequisicoes(Set<Requisicao> requisicoes) {
-        this.requisicoes = requisicoes;
-    }
+//
+//    public Set<Requisicao> getRequisicoes() {
+//        return requisicoes;
+//    }
+//
+//    public void setRequisicoes(Set<Requisicao> requisicoes) {
+//        this.requisicoes = requisicoes;
+//    }
 }

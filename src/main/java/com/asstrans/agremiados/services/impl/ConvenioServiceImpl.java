@@ -33,6 +33,11 @@ public class ConvenioServiceImpl implements ConvenioService {
         return convenioRepository.findActiveAll(spec, pageable);
     }
 
+    @Override
+    public Page<Convenio> findAllSearch(String search, Pageable pageable) {
+        return convenioRepository.findAllSearch(search, pageable);
+    }
+
 
     @Override
     public Convenio findById(Long id) {

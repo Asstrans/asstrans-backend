@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class SpecificationTemplate {
 
-    @Spec(path = "fantasyName", spec = Like.class)
+    @Spec(path = "fantasyName", spec = Like.class )
     public interface ConvenioSpec extends Specification<Convenio> { }
 
     @Or({
