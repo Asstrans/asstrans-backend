@@ -46,8 +46,9 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         final  var requisicao = requisicaoRepository.findById(idRequisicao);
         final var associado = associadoRepository.findById(requisicao.get().getAssociado().getId());
         final  var parcela = parcelaRepository.findById(idParcela);
+        final var parcelas =  findAllParcelasByRequisicao(requisicao.get().getId());
         parcela.get().setStatus(StatusParcela.PAGO);
-        if(confirmBaixaRequisicao(requisicao.get())){
+        if(confirmBaixaRequisicao(parcelas)){
             final var requisicoes = requisicaoRepository.findRequisicoesByAssociado(associado.get().getId());
             final var total = getValorParcelaRequisicoes(requisicoes);
             associado.get().setLimiteUtilizado(associado.get().getLimiteUtilizado().subtract(total.add(requisicao.get().getValorParcela())));
@@ -56,9 +57,10 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
     }
 
-    private boolean confirmBaixaRequisicao(Requisicao requisicao){
+
+    private boolean confirmBaixaRequisicao(List<Parcela> parcelas){
         boolean isBaixa = false;
-        final  var parcelas = findAllParcelasByRequisicao(requisicao.getId());
+
         for (Parcela p: parcelas) {
             if(p.getStatus().equals(StatusParcela.PAGO)){
                 isBaixa = true;
