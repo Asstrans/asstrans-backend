@@ -46,8 +46,8 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         final  var requisicao = requisicaoRepository.findById(idRequisicao);
         final var associado = associadoRepository.findById(requisicao.get().getAssociado().getId());
         final  var parcela = parcelaRepository.findById(idParcela);
-        final var parcelas =  findAllParcelasByRequisicao(requisicao.get().getId());
         parcela.get().setStatus(StatusParcela.PAGO);
+        final var parcelas =  findAllParcelasByRequisicao(requisicao.get().getId());
         if(confirmBaixaRequisicao(parcelas)){
             final var requisicoes = requisicaoRepository.findRequisicoesByAssociado(associado.get().getId());
             final var total = getValorParcelaRequisicoes(requisicoes);
