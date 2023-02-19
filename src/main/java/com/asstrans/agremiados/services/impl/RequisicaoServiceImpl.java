@@ -25,6 +25,7 @@ import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RequisicaoServiceImpl implements RequisicaoService {
@@ -60,18 +61,24 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
     private boolean confirmBaixaRequisicao(List<Parcela> parcelas){
         boolean isBaixa = false;
-
-        for (Parcela p: parcelas) {
-            System.out.println(p.getStatus());
+        final var total = parcelas.stream()
+                .filter((parcela) -> parcela.getStatus().equals(StatusParcela.PENDENTE))
+                .collect(Collectors.toList());
+//        System.out.println(parcelas.size());
+//        for (Parcela p: parcelas) {
+//            System.out.println(p.getStatus());
+//        }
+//        for (Parcela p: parcelas) {
+//            if(p.getStatus().equals(StatusParcela.PAGO)){
+//                isBaixa = true;
+//            }else{
+//                isBaixa = false;
+//            }
+//        }
+//        System.out.println(isBaixa);
+        if(total.size() == 0){
+            isBaixa = true;
         }
-        for (Parcela p: parcelas) {
-            if(p.getStatus().equals(StatusParcela.PAGO)){
-                isBaixa = true;
-            }else{
-                isBaixa = false;
-            }
-        }
-        System.out.println(isBaixa);
         return isBaixa;
     }
 
