@@ -62,12 +62,16 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         boolean isBaixa = false;
 
         for (Parcela p: parcelas) {
+            System.out.println(p.getStatus());
+        }
+        for (Parcela p: parcelas) {
             if(p.getStatus().equals(StatusParcela.PAGO)){
                 isBaixa = true;
             }else{
                 isBaixa = false;
             }
         }
+        System.out.println(isBaixa);
         return isBaixa;
     }
 
