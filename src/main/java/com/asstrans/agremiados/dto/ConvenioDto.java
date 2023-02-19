@@ -1,5 +1,4 @@
 package com.asstrans.agremiados.dto;
-
 import com.asstrans.agremiados.enums.ZoneCity;
 
 public class ConvenioDto {
@@ -21,12 +20,11 @@ public class ConvenioDto {
 
     private String tel;
 
-    private String fax;
+    private String email;
 
     private String phoneStores;
 
     private String referencePoint;
-
 
     public Long getId() {
         return id;
@@ -43,7 +41,6 @@ public class ConvenioDto {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-
 
     public String getStateResgistration() {
         return stateResgistration;
@@ -101,12 +98,12 @@ public class ConvenioDto {
         this.tel = tel;
     }
 
-    public String getFax() {
-        return fax;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneStores() {
@@ -124,4 +121,7 @@ public class ConvenioDto {
     public void setReferencePoint(String referencePoint) {
         this.referencePoint = referencePoint;
     }
+
+
+
 }

@@ -36,7 +36,7 @@ public class Convenio implements Serializable {
 
     private String tel;
 
-    private String fax;
+    private String email;
 
     private String phoneStores;
 
@@ -126,12 +126,12 @@ public class Convenio implements Serializable {
         this.tel = tel;
     }
 
-    public String getFax() {
-        return fax;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneStores() {
@@ -165,4 +165,6 @@ public class Convenio implements Serializable {
 //    public void setRequisicoes(Set<Requisicao> requisicoes) {
 //        this.requisicoes = requisicoes;
 //    }
+
+
 }

@@ -25,18 +25,21 @@ public class Associado implements Serializable {
 
     private String name;
 
+    private String email;
+
     private String rg;
 
     private String cpf;
 
     @Enumerated(EnumType.STRING)
     private ZoneCity zoneCity;
-
     private String setor;
-
     private String celular;
-
     private BigDecimal salarioBase;
+
+    private BigDecimal limiteTotal;
+
+    private BigDecimal limiteUtilizado;
 
     private Boolean isActive;
 
@@ -137,5 +140,30 @@ public class Associado implements Serializable {
 
     public void setZoneCity(ZoneCity zoneCity) {
         this.zoneCity = zoneCity;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public BigDecimal getLimiteUtilizado() {
+        return limiteUtilizado;
+    }
+
+    public void setLimiteUtilizado(BigDecimal limiteUtilizado) {
+        this.limiteUtilizado = limiteUtilizado;
+    }
+
+
+    public BigDecimal getLimiteTotal() {
+        return limiteTotal;
+    }
+
+    public void setLimiteTotal(BigDecimal limiteTotal) {
+        this.limiteTotal = limiteTotal;
     }
 }

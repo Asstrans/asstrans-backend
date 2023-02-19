@@ -22,9 +22,18 @@ public class AssociadoController {
     private AssociadoService associadoService;
 
     @GetMapping
-    public ResponseEntity<Page<Associado>> findAll(SpecificationTemplate.AssociadoSpec spec,
+    public ResponseEntity<Page<Associado>> findAll(
+                                                  @RequestParam("search") String search,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(associadoService.findActiveAll(spec,pageable));
+        return ResponseEntity.ok().body(associadoService.findAllSearch(search,pageable));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> search(
+            @RequestParam("search") String search,
+            @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable){
+
+        return ResponseEntity.ok().body(associadoService.findAllSearch(search, pageable));
     }
 
     @PostMapping

@@ -5,6 +5,7 @@ import com.asstrans.agremiados.dto.AssociadoDto;
 import com.asstrans.agremiados.mapper.AssociadoMapper;
 import com.asstrans.agremiados.model.Associado;
 
+import com.asstrans.agremiados.model.Convenio;
 import com.asstrans.agremiados.repositories.AssociadoRepository;
 import com.asstrans.agremiados.services.AssociadoService;
 
@@ -14,6 +15,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 @Service
 public class AssociadoServiceImpl implements AssociadoService {
@@ -30,6 +35,12 @@ public class AssociadoServiceImpl implements AssociadoService {
         return associadoRepository.findAll(spec, pageable);
     }
 
+    @Override
+    public Page<Associado> findAllSearch(String search, Pageable pageable) {
+        return associadoRepository.findAllSearch(search, pageable);
+    }
+
+
     @Transactional(readOnly = true)
     public Page<Associado> findActiveAll(Specification<Associado> spec, Pageable pageable){
         return associadoRepository.findActiveAll(spec, pageable);
@@ -44,6 +55,10 @@ public class AssociadoServiceImpl implements AssociadoService {
     @Transactional()
     @Override
     public Associado save(Associado associado) {
+        MathContext m = new MathContext(1);
+        associado.setLimiteUtilizado(new BigDecimal(0));
+        associado.setLimiteTotal(associado.getSalarioBase()
+                .multiply(new BigDecimal(0.3)).setScale(2, RoundingMode.HALF_UP));
         return associadoRepository.save(associado);
     }
 

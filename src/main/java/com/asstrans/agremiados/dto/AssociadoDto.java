@@ -1,5 +1,7 @@
 package com.asstrans.agremiados.dto;
 
+import com.asstrans.agremiados.enums.ZoneCity;
+
 import java.math.BigDecimal;
 
 public class AssociadoDto {
@@ -8,6 +10,10 @@ public class AssociadoDto {
     private String matricula;
 
     private String name;
+
+    private String email;
+
+    private ZoneCity zoneCity;
 
     private String rg;
 
@@ -81,5 +87,21 @@ public class AssociadoDto {
 
     public void setSalarioBase(BigDecimal salarioBase) {
         this.salarioBase = salarioBase;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ZoneCity getZoneCity() {
+        return zoneCity;
+    }
+
+    public void setZoneCity(ZoneCity zoneCity) {
+        this.zoneCity = zoneCity;
     }
 }

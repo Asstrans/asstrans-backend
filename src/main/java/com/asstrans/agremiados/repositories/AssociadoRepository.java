@@ -16,4 +16,6 @@ public interface AssociadoRepository extends JpaRepository<Associado, Long>, Jpa
     @Query(value = "SELECT * FROM TB_ASSOCIADOS WHERE IS_ACTIVE = true", nativeQuery = true)
     public Page<Associado> findActiveAll(Specification<Associado> spec, Pageable pageable);
 
+    @Query(value = "select a from Associado a where a.isActive = true and (a.matricula like %?1% or a.name like %?1%)")
+    public Page<Associado> findAllSearch(String search, Pageable pageable);
 }
