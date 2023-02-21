@@ -23,7 +23,6 @@ public class Requisicao implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusRequisicao status;
 
-
     @ManyToOne(optional = false,  fetch = FetchType.EAGER)
     private Associado associado;
 
