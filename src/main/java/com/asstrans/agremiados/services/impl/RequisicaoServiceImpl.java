@@ -1,6 +1,8 @@
 package com.asstrans.agremiados.services.impl;
 
+import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
 import com.asstrans.agremiados.dto.RequisicaoDto;
+import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.enums.StatusParcela;
 import com.asstrans.agremiados.enums.StatusRequisicao;
 import com.asstrans.agremiados.model.Parcela;
@@ -23,7 +25,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,11 +53,13 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         final  var parcela = parcelaRepository.findById(idParcela);
         parcela.get().setStatus(StatusParcela.PAGO);
         final var parcelas =  findAllParcelasByRequisicao(requisicao.get().getId());
+        requisicao.get().setParcelaAtual(parcela.get().getName().split(" ")[1]+"/"+parcelas.size());
         if(confirmBaixaRequisicao(parcelas)){
             final var requisicoes = requisicaoRepository.findRequisicoesByAssociado(associado.get().getId());
             final var total = getValorParcelaRequisicoes(requisicoes);
             associado.get().setLimiteUtilizado(associado.get().getLimiteUtilizado().subtract(total.add(requisicao.get().getValorParcela())));
             requisicao.get().setStatus(StatusRequisicao.QUITADO);
+
         }
     }
 
@@ -67,28 +73,22 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         }
         return isBaixa;
     }
-
-
     @Override
     public List<Parcela> findAllParcelasByRequisicao(Long idRequisicao){
         return parcelaRepository.findAllParcelasByRequisicao(idRequisicao);
     }
-
     @Override
     public Page<Requisicao> findAllByAssociadoAndConvenio(Long idAssociado, Long idConvenio, Pageable pageable) {
         return requisicaoRepository.findAllByAssociadoAndConvenio(idAssociado, idConvenio, pageable);
     }
-
     @Override
     public Page<Requisicao> findAllByAssociado(Long idAssociado, Pageable pageable) {
         return requisicaoRepository.findAllByAssociado(idAssociado, pageable);
     }
-
     @Override
     public Page<Requisicao> findAllByConvenio(Long idConvenio, Pageable pageable) {
         return requisicaoRepository.findAllByConvenio(idConvenio, pageable);
     }
-
     @Override
     public Page<Requisicao> findAll(Pageable pageable) {
         return requisicaoRepository.findAll(pageable);
@@ -98,8 +98,6 @@ public class RequisicaoServiceImpl implements RequisicaoService {
     public List<Parcela> findAllParcelasPagasByRequisicao(Long idRequisicao){
         return parcelaRepository.findAllParcelasPagasByRequisicao(idRequisicao);
     }
-
-
 
     @Override
     @Transactional
@@ -134,7 +132,6 @@ public class RequisicaoServiceImpl implements RequisicaoService {
     public Requisicao findById(Long id) {
         return requisicaoRepository.findById(id).get();
     }
-
     @Transactional
     @Override
     public void aceitar(Long id) {
@@ -142,8 +139,11 @@ public class RequisicaoServiceImpl implements RequisicaoService {
        final var associado = associadoRepository.findById(requisicao.getAssociado().getId());
        final var requisicoes = requisicaoRepository.findRequisicoesByAssociado(associado.get().getId());
 
+       final var parcelas =  findAllParcelasByRequisicao(requisicao.getId());
        final var total = getValorParcelaRequisicoes(requisicoes);
 
+       requisicao.setParcelaAtual(""+1+"/"+parcelas.size());
+       requisicao.setDataRequisicao(Calendar.getInstance().getTime());
        requisicao.setStatus(StatusRequisicao.ABERTA);
        associado.get().setLimiteUtilizado(associado.get().getLimiteUtilizado().add(total.add(requisicao.getValorParcela())));
     }
@@ -154,7 +154,6 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         final var requisicao = requisicaoRepository.findById(id).get();
         requisicao.setStatus(StatusRequisicao.CANCELADA);
     }
-
     private BigDecimal getValorParcelaRequisicoes(List<Requisicao> requisicoes){
          var valor = new BigDecimal(0);
         for (Requisicao requisicao: requisicoes) {
@@ -162,14 +161,33 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         }
         return valor;
     }
-
     private List<Parcela> gerarParcelas(Long quantidadeParcelas, BigDecimal valorParcela, Requisicao requisicao) {
         final var listParcelas = new ArrayList<Parcela>();
         int mesAtual = DataUtils.getMesAtual();
         for (int i =0; i< quantidadeParcelas; i++){
-
             listParcelas.add(new Parcela(null, "PARCELA " + (i+1), valorParcela, StatusParcela.PENDENTE, DataUtils.getUltimoDiaDoMes(++mesAtual), requisicao));
         }
         return listParcelas;
     }
+
+    @Transactional(readOnly = false)
+    public List<Requisicao> reportUnificada(int mes) {
+        return this.requisicaoRepository.reportUnificada(mes);
+    }
+
+    @Transactional(readOnly = false)
+    public List<RequisicaoTotal> reportUnificadaTotal(int mes) {
+        return this.requisicaoRepository.reportUnificadaTotal(mes);
+    }
+
+    @Transactional(readOnly = false)
+    public List<Requisicao> reportNormal(int mes) {
+        return this.requisicaoRepository.reportNormal(mes);
+    }
+
+    @Transactional(readOnly = false)
+    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes) {
+        return this.requisicaoRepository.reportNormalTotal(mes);
+    }
+
 }

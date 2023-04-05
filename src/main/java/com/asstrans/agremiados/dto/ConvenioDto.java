@@ -1,29 +1,16 @@
 package com.asstrans.agremiados.dto;
-import com.asstrans.agremiados.enums.ZoneCity;
-
 public class ConvenioDto {
-
     private Long id;
     private String cnpj;
-
     private String stateResgistration;
-
     private String municipalResgistration;
-
     private String address;
-
     private String fantasyName;
-
     private String corporateName;
-
     private String responsible;
-
     private String tel;
-
     private String email;
-
     private String phoneStores;
-
     private String referencePoint;
 
     public Long getId() {

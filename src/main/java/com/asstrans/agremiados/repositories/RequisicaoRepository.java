@@ -1,5 +1,7 @@
 package com.asstrans.agremiados.repositories;
 
+import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
+import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.model.Requisicao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,5 +25,21 @@ public interface RequisicaoRepository extends JpaRepository<Requisicao, Long> {
 
     @Query("SELECT req from Requisicao req where req.convenio.id = ?1")
     Page<Requisicao> findAllByConvenio(Long idConvenio, Pageable pageable);
+
+    //REPORT UNIFICADA
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 order by req.associado.id")
+    List<Requisicao> reportUnificada(int mes);
+    @Query(name = "RequisicaoSumTotal" , nativeQuery = true )
+    List<RequisicaoTotal> reportUnificadaTotal(int mes);
+
+    //REPORT NORMAL
+
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 order by req.convenio.id")
+    List<Requisicao> reportNormal(int mes);
+
+    @Query(name = "RequisicaoConvenioSumTotal" , nativeQuery = true )
+    List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
+
+
 
 }

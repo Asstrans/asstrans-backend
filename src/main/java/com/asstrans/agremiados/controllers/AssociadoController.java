@@ -2,6 +2,7 @@ package com.asstrans.agremiados.controllers;
 
 import com.asstrans.agremiados.dto.AssociadoDto;
 import com.asstrans.agremiados.model.Associado;
+import com.asstrans.agremiados.model.Dependente;
 import com.asstrans.agremiados.services.AssociadoService;
 import com.asstrans.agremiados.specification.SpecificationTemplate;
 
@@ -23,22 +24,32 @@ public class AssociadoController {
 
     @GetMapping
     public ResponseEntity<Page<Associado>> findAll(
-                                                  @RequestParam("search") String search,
+                                                  @RequestParam(value = "search", required = false) String search,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.ok().body(associadoService.findAllSearch(search,pageable));
     }
 
     @GetMapping("/search")
     public ResponseEntity<?> search(
-            @RequestParam("search") String search,
+            @RequestParam(value = "search", required = false) String search,
             @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable){
 
         return ResponseEntity.ok().body(associadoService.findAllSearch(search, pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> finfById(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(associadoService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Associado associado) {
         return ResponseEntity.ok().body(associadoService.save(associado));
+    }
+
+    @PostMapping("/{id}/dependente")
+    public ResponseEntity<?> saveDependente(@PathVariable Long id, @RequestBody Dependente dependente) {
+        return ResponseEntity.ok().body(associadoService.saveDependente(id, dependente));
     }
 
     @PutMapping("/{id}")

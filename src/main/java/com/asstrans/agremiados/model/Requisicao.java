@@ -1,20 +1,48 @@
 package com.asstrans.agremiados.model;
 
+import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
+import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.enums.StatusRequisicao;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
+
+//UNIFICADA
+@NamedNativeQuery(
+        name = "RequisicaoSumTotal",
+        query = "SELECT TB_REQUISICOES.ASSOCIADO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 GROUP BY TB_REQUISICOES.ASSOCIADO_ID",
+        resultSetMapping = "RequisicaoTotal"
+)
+@SqlResultSetMapping(
+        name = "RequisicaoTotal",
+        classes = @ConstructorResult(
+                targetClass = RequisicaoTotal.class,
+                columns = {
+                        @ColumnResult(name = "associado_id", type = Long.class),
+                        @ColumnResult(name = "total", type = Double.class)}))
+
+//NORMAL
+@NamedNativeQuery(
+        name = "RequisicaoConvenioSumTotal",
+        query = "SELECT TB_REQUISICOES.CONVENIO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 GROUP BY TB_REQUISICOES.CONVENIO_ID",
+        resultSetMapping = "RequisicaoConvenioTotal"
+)
+@SqlResultSetMapping(
+        name = "RequisicaoConvenioTotal",
+        classes = @ConstructorResult(
+                targetClass = RequisicaoConvenioTotal.class,
+                columns = {
+                        @ColumnResult(name = "convenio_id", type = Long.class),
+                        @ColumnResult(name = "total", type = Double.class)}))
 @Table(name = "TB_REQUISICOES")
 public class Requisicao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal valorTotal;
 
@@ -23,9 +51,13 @@ public class Requisicao implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusRequisicao status;
 
+    private String parcelaAtual;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataRequisicao;
+
     @ManyToOne(optional = false,  fetch = FetchType.EAGER)
     private Associado associado;
-
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Convenio convenio;
@@ -78,4 +110,19 @@ public class Requisicao implements Serializable {
         this.status = status;
     }
 
+    public Date getDataRequisicao() {
+        return dataRequisicao;
+    }
+
+    public String getParcelaAtual() {
+        return parcelaAtual;
+    }
+
+    public void setParcelaAtual(String parcelaAtual) {
+        this.parcelaAtual = parcelaAtual;
+    }
+
+    public void setDataRequisicao(Date dataRequisicao) {
+        this.dataRequisicao = dataRequisicao;
+    }
 }

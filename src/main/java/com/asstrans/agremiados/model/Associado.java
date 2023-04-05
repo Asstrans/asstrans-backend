@@ -8,7 +8,9 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "TB_ASSOCIADOS")
@@ -17,7 +19,7 @@ public class Associado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -31,6 +33,11 @@ public class Associado implements Serializable {
 
     private String cpf;
 
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany( fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<Dependente> dependentes = new HashSet<>();
+
     @Enumerated(EnumType.STRING)
     private ZoneCity zoneCity;
     private String setor;
@@ -42,11 +49,6 @@ public class Associado implements Serializable {
     private BigDecimal limiteUtilizado;
 
     private Boolean isActive;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "associado", fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    private Set<Requisicao> requisicoes;
 
 
     public Associado(){
@@ -126,14 +128,6 @@ public class Associado implements Serializable {
         isActive = active;
     }
 
-    public Set<Requisicao> getRequisicoes() {
-        return requisicoes;
-    }
-
-    public void setRequisicoes(Set<Requisicao> requisicoes) {
-        this.requisicoes = requisicoes;
-    }
-
     public ZoneCity getZoneCity() {
         return zoneCity;
     }
@@ -158,7 +152,6 @@ public class Associado implements Serializable {
         this.limiteUtilizado = limiteUtilizado;
     }
 
-
     public BigDecimal getLimiteTotal() {
         return limiteTotal;
     }
@@ -166,4 +159,14 @@ public class Associado implements Serializable {
     public void setLimiteTotal(BigDecimal limiteTotal) {
         this.limiteTotal = limiteTotal;
     }
+
+    public Set<Dependente> getDependentes() {
+        return dependentes;
+    }
+
+    public void setDependentes(Set<Dependente> dependentes) {
+        this.dependentes = dependentes;
+    }
+
+
 }

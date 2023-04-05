@@ -75,4 +75,24 @@ public class RequisicaoController {
     public ResponseEntity<?> findAllParcelasByRequisicao(@PathVariable("id") Long id){
         return  ResponseEntity.ok().body(requisicaoService.findAllParcelasByRequisicao(id));
     }
+
+
+    //REPORT
+    @GetMapping("/unificada")
+    public ResponseEntity<?> reportUnificada(@RequestParam(value = "mes", required = false) int mes){
+        return  ResponseEntity.ok().body(requisicaoService.reportUnificada(mes));
+    }
+    @GetMapping("/unificada/total")
+    public ResponseEntity<?> reportUnificadaTotal(@RequestParam(value = "mes", required = false) int mes){
+        return  ResponseEntity.ok().body(requisicaoService.reportUnificadaTotal(mes));
+    }
+
+    @GetMapping("/normal")
+    public ResponseEntity<?> reportNormal(@RequestParam(value = "mes", required = false) int mes){
+        return  ResponseEntity.ok().body(requisicaoService.reportNormal(mes));
+    }
+    @GetMapping("/normal/total")
+    public ResponseEntity<?> reportNormalTotal(@RequestParam(value = "mes", required = false) int mes){
+        return  ResponseEntity.ok().body(requisicaoService.reportNormalTotal(mes));
+    }
 }

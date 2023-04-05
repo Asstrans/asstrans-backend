@@ -1,6 +1,8 @@
 package com.asstrans.agremiados.services;
 
+import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
 import com.asstrans.agremiados.dto.RequisicaoDto;
+import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.model.Parcela;
 import com.asstrans.agremiados.model.Requisicao;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,15 @@ public interface RequisicaoService {
     Page<Requisicao> findAllByConvenio(Long idConvenio, Pageable pageable);
 
     Page<Requisicao> findAll(Pageable pageable);
+
+    //REPORT
+    public List<Requisicao> reportUnificada(int mes);
+    public List<RequisicaoTotal> reportUnificadaTotal(int mes);
+
+    //NORMAL
+    public List<Requisicao> reportNormal(int mes);
+
+    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
 
 
 }

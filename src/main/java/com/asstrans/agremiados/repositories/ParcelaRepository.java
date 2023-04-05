@@ -13,6 +13,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
     @Query(value = "select p from Parcela p where p.status = 'PAGO' and p.requisicao.id = ?1 ")
     public List<Parcela> findAllParcelasPagasByRequisicao(Long idRequisicao);
 
+
     @Query(value = "select p from Parcela p where p.requisicao.id = ?1 ")
     public List<Parcela> findAllParcelasByRequisicao(Long idRequisicao);
 
