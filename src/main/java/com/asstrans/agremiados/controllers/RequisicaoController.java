@@ -76,6 +76,12 @@ public class RequisicaoController {
         return  ResponseEntity.ok().body(requisicaoService.findAllParcelasByRequisicao(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+        requisicaoService.delete(id);
+      return ResponseEntity.noContent().build();
+    }
+
 
     //REPORT
     @GetMapping("/unificada")

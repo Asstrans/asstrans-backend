@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,6 +43,8 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
     @Autowired
     private ConvenioRepository convenioRepository;
+
+
 
     @Override
     @Transactional
@@ -126,6 +127,15 @@ public class RequisicaoServiceImpl implements RequisicaoService {
 
         this.parcelaRepository.saveAll(gerarParcelas(quantidadeParcelas, valorParcela, requisicaoSalva));
         return  requisicaoSalva;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        var parcelas = parcelaRepository.findAllParcelasByRequisicao(id);
+        parcelaRepository.deleteAllInBatch(parcelas);
+        var requisicao = requisicaoRepository.findById(id);
+        this.requisicaoRepository.delete(requisicao.get());
     }
 
     @Override

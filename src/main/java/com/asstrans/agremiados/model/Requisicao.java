@@ -62,6 +62,12 @@ public class Requisicao implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Convenio convenio;
 
+    private boolean isAvulso;
+
+    public Requisicao() {
+      this.isAvulso = false;
+    }
+
     public Long getId() {
         return id;
     }
@@ -124,5 +130,13 @@ public class Requisicao implements Serializable {
 
     public void setDataRequisicao(Date dataRequisicao) {
         this.dataRequisicao = dataRequisicao;
+    }
+
+    public boolean isAvulso() {
+        return isAvulso;
+    }
+
+    public void setAvulso(boolean avulso) {
+        isAvulso = avulso;
     }
 }
