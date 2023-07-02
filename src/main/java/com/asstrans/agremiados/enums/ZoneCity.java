@@ -4,5 +4,11 @@ public enum ZoneCity {
     NORTE,
     LESTE,
     SUL,
-    OESTE
+    OESTE,
+    CENTRO_SUL,
+    DOT,
+    SED,
+    OUTROS
+
+
 }
