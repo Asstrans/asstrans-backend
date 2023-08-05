@@ -1,6 +1,7 @@
 package com.asstrans.agremiados.repositories;
 
 import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
+import com.asstrans.agremiados.dto.RequisicaoMesAssociado;
 import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.model.Requisicao;
 import org.springframework.data.domain.Page;
@@ -33,12 +34,16 @@ public interface RequisicaoRepository extends JpaRepository<Requisicao, Long> {
     List<RequisicaoTotal> reportUnificadaTotal(int mes);
 
     //REPORT NORMAL
-
     @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 order by req.convenio.id")
     List<Requisicao> reportNormal(int mes);
 
     @Query(name = "RequisicaoConvenioSumTotal" , nativeQuery = true )
     List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
+
+
+    //CONSOLIDADA
+    @Query(name = "RequisicaoMesAssociados" , nativeQuery = true )
+    List<RequisicaoMesAssociado> reportConsolidadaMesAssociado(int mes);
 
 
 

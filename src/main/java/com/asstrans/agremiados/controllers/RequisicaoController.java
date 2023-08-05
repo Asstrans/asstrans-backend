@@ -5,6 +5,8 @@ import com.asstrans.agremiados.dto.ParcelaBaixaDto;
 import com.asstrans.agremiados.dto.ReprovarRequisicaoDto;
 import com.asstrans.agremiados.dto.RequisicaoDto;
 import com.asstrans.agremiados.model.Requisicao;
+import com.asstrans.agremiados.repositories.PlanoAssociadoRepository;
+import com.asstrans.agremiados.repositories.RequisicaoRepository;
 import com.asstrans.agremiados.services.RequisicaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,12 @@ public class RequisicaoController {
 
     @Autowired
     private RequisicaoService requisicaoService;
+
+    @Autowired
+    private PlanoAssociadoRepository planoAssociadoRepository;
+
+    @Autowired
+    private RequisicaoRepository requisicaoRepository;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody RequisicaoDto requisicaoDto) {
@@ -100,5 +108,16 @@ public class RequisicaoController {
     @GetMapping("/normal/total")
     public ResponseEntity<?> reportNormalTotal(@RequestParam(value = "mes", required = false) int mes){
         return  ResponseEntity.ok().body(requisicaoService.reportNormalTotal(mes));
+    }
+
+    //UNIFICADA
+    @GetMapping("/consolidada/planos-associados")
+    public ResponseEntity<?> reportPlanosAssociados(){
+        return  ResponseEntity.ok().body(planoAssociadoRepository.reportPlanosAssociadosAll());
+    }
+
+    @GetMapping("/consolidada/requisicoes-mes-associados")
+    public ResponseEntity<?> reportConsolidadaMesAssociado(@RequestParam(value = "mes", required = false) int mes){
+        return  ResponseEntity.ok().body(requisicaoRepository.reportConsolidadaMesAssociado(mes));
     }
 }

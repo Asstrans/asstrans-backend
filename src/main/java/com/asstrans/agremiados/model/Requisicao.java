@@ -1,6 +1,7 @@
 package com.asstrans.agremiados.model;
 
 import com.asstrans.agremiados.dto.RequisicaoConvenioTotal;
+import com.asstrans.agremiados.dto.RequisicaoMesAssociado;
 import com.asstrans.agremiados.dto.RequisicaoTotal;
 import com.asstrans.agremiados.enums.StatusRequisicao;
 
@@ -38,6 +39,37 @@ import java.util.Date;
                 columns = {
                         @ColumnResult(name = "convenio_id", type = Long.class),
                         @ColumnResult(name = "total", type = Double.class)}))
+
+//CONSOLIDADA
+@NamedNativeQuery(
+        name = "RequisicaoMesAssociados",
+        query = "SELECT " +
+                "R.ID as id_requisicao, " +
+                "R.VALOR_TOTAL, " +
+                "R.VALOR_PARCELA, " +
+                "ASS.ID as id_associado, " +
+                "ASS.NAME as nome_associado, " +
+                "CON.ID as id_convenio, " +
+                "CON.FANTASY_NAME as nome_convenio " +
+                "FROM TB_REQUISICOES as R " +
+                "INNER JOIN TB_ASSOCIADOS as ASS ON R.ASSOCIADO_ID = ASS.ID " +
+                "INNER JOIN TB_CONVENIOS as CON ON R.CONVENIO_ID = CON.ID " +
+                "WHERE DATE_PART('Month',R.DATA_REQUISICAO) = ?1",
+        resultSetMapping = "RequisicaoMesResult"
+)
+@SqlResultSetMapping(
+        name = "RequisicaoMesResult",
+        classes = @ConstructorResult(
+                targetClass = RequisicaoMesAssociado.class,
+                columns = {
+                        @ColumnResult(name = "id_requisicao", type = Long.class),
+                        @ColumnResult(name = "valor_total", type = Double.class),
+                        @ColumnResult(name = "valor_parcela", type = Double.class),
+                        @ColumnResult(name = "id_associado", type = Long.class),
+                        @ColumnResult(name = "nome_associado", type = String.class),
+                        @ColumnResult(name = "id_convenio", type = Long.class),
+                        @ColumnResult(name = "nome_convenio", type = String.class),
+                }))
 @Table(name = "TB_REQUISICOES")
 public class Requisicao implements Serializable {
     private static final long serialVersionUID = 1L;
