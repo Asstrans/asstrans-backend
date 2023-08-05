@@ -2,7 +2,7 @@ INSERT INTO TB_ROLES (id,autority) VALUES(1,'ROLE_ADM');
 INSERT INTO TB_ROLES (id,autority) VALUES(2,'ROLE_OPERATOR');
 
 
-INSERT INTO TB_USERS (id,FIRST_NAME,email,password) VALUES(3,'Asstrans','asstransmanaus@gmail.com','$2y$12$yVrc3R7WsihBuRR66OCuFu4RGSxJwioEUKYcoUKrZ3WiIWmfHZt.m');
+INSERT INTO TB_USERS (id,FIRST_NAME,email,password) VALUES(1,'Asstrans','asstransmanaus@gmail.com','$2y$12$yVrc3R7WsihBuRR66OCuFu4RGSxJwioEUKYcoUKrZ3WiIWmfHZt.m');
 
 INSERT INTO TB_USERS_ROLES (USER_ID, ROLE_ID) VALUES(1,1);
 
