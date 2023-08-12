@@ -7,5 +7,6 @@ public interface PlanoAssociadoDependenteService {
     PlanoAssociadoDependente save(PlanoAssociadoDependenteDto planoAssociadoDependenteDto);
     PlanoAssociadoDependente verifyPlanoAssociadoDependente(Long idPlanoAssociado, Long idDependente);
 
+    void deleteDependente(Long id);
     public void delete(Long id);
 }

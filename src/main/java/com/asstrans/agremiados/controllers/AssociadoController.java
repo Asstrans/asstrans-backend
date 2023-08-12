@@ -1,9 +1,11 @@
 package com.asstrans.agremiados.controllers;
 
 import com.asstrans.agremiados.dto.AssociadoDto;
+import com.asstrans.agremiados.dto.UpdateDependenteDto;
 import com.asstrans.agremiados.model.Associado;
 import com.asstrans.agremiados.model.Dependente;
 import com.asstrans.agremiados.services.AssociadoService;
+import com.asstrans.agremiados.services.DependenteService;
 import com.asstrans.agremiados.specification.SpecificationTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class AssociadoController {
 
     @Autowired
     private AssociadoService associadoService;
+
+    @Autowired
+    private DependenteService dependenteService;
 
     @GetMapping
     public ResponseEntity<Page<Associado>> findAll(
@@ -56,6 +61,18 @@ public class AssociadoController {
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody AssociadoDto associadoDto) {
         return ResponseEntity.ok().body(associadoService.update(id,associadoDto));
     }
+
+    @PutMapping("/{id}/dependente")
+    public ResponseEntity<?> updateDependente(@PathVariable Long id, @RequestBody UpdateDependenteDto updateDependenteDto) {
+        return ResponseEntity.ok().body(dependenteService.update(id,updateDependenteDto));
+    }
+
+    @DeleteMapping("/{id}/dependente")
+    public ResponseEntity<?> deleteDependente(@PathVariable Long id) {
+        dependenteService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @PutMapping("/deactive/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

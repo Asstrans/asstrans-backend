@@ -1,5 +1,8 @@
 package com.asstrans.agremiados.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -16,7 +19,7 @@ public class PlanoAssociadoDependente implements Serializable {
     @JoinColumn(name = "plano_associado_id")
     private PlanoAssociado planoAssociado;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "dependente_id")
     private Dependente dependente;
 

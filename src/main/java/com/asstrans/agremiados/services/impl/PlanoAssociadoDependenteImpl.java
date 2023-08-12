@@ -30,6 +30,19 @@ public class PlanoAssociadoDependenteImpl implements PlanoAssociadoDependenteSer
         this.planoAssociadoDependenteRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteDependente(Long id) {
+        PlanoAssociadoDependente planoAssociadoDependente = planoAssociadoDependenteRepository.verifyPlanoAssociadoDependenteById(id);
+        if(planoAssociadoDependente != null){
+            this.planoAssociadoDependenteRepository.delete(planoAssociadoDependente);
+        }
+
+        this.dependenteRepository.deleteById(id);
+    }
+
+
+
+
     @Transactional()
     @Override
     public PlanoAssociadoDependente save(PlanoAssociadoDependenteDto planoAssociadoDependenteDto) {

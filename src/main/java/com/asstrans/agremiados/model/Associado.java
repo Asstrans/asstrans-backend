@@ -34,7 +34,7 @@ public class Associado implements Serializable {
     private String cpf;
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany( fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     private Set<Dependente> dependentes = new HashSet<>();
 

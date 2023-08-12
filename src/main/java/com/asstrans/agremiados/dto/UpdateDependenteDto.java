@@ -1,43 +1,23 @@
-package com.asstrans.agremiados.model;
+package com.asstrans.agremiados.dto;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 
-@Entity
-@Table(name = "TB_DEPENDENTES")
-@OnDelete(action = OnDeleteAction.CASCADE)
-public class Dependente implements Serializable {
+public class UpdateDependenteDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
 
     private String grauParentesco;
 
-    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
+    public UpdateDependenteDto() {}
 
-    private Instant createdAt;
-
-
-    public Dependente() {
-
-    }
-
-    public Dependente(Long id, String nome, String grauParentesco, Date dataNascimento, Instant createdAt) {
+    public UpdateDependenteDto(Long id, String nome, String grauParentesco, Date dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.grauParentesco = grauParentesco;
         this.dataNascimento = dataNascimento;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -70,13 +50,5 @@ public class Dependente implements Serializable {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 }
