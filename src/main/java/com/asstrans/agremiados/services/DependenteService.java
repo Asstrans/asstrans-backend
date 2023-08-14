@@ -12,7 +12,9 @@ public interface DependenteService {
 
     public void delete(Long id);
 
-    public UpdateDependenteDto update(Long id, UpdateDependenteDto updateDependenteDto);
+    public UpdateDependenteDto updateDependente(Long id, UpdateDependenteDto updateDependenteDto);
+
+    public List<Dependente> findByAssociado(Long id);
 
     public List<Dependente> findAll();
 }

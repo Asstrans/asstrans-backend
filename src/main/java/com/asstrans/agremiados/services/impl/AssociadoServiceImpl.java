@@ -76,8 +76,9 @@ public class AssociadoServiceImpl implements AssociadoService {
     public Associado saveDependente(Long idAssociado, Dependente dependente) {
         Associado associado = associadoRepository.findById(idAssociado).get();
         dependente.setCreatedAt(Instant.now());
+        dependente.setAssociado(associado);
         dependenteRepository.save(dependente);
-        associado.getDependentes().add(dependente);
+        //associado.getDependentes().add(dependente);
         return  associado;
     }
 

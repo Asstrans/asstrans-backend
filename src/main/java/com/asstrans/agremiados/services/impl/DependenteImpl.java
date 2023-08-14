@@ -38,12 +38,22 @@ public class DependenteImpl implements DependenteService {
     }
 
     @Override
-    public UpdateDependenteDto update(Long id, UpdateDependenteDto updateDependenteDto) {
-        Dependente dependente = dependenteRepository.getReferenceById(id);
-        updateDependenteDto.setId(dependente.getId());
-        dependente = dependenteMapper.toDependente(updateDependenteDto);
-
+    public UpdateDependenteDto updateDependente(Long id, UpdateDependenteDto updateDependenteDto) {
+//        System.out.println("UpdateDependenteDto");
+//        Dependente dependente = dependenteRepository.getReferenceById(id);
+//        System.out.println(dependente);
+//        updateDependenteDto.setId(dependente.getId());
+//        dependente = dependenteMapper.toDependente(updateDependenteDto);
+        Dependente dependente = dependenteRepository.findById(id).get();
+        dependente.setDataNascimento(updateDependenteDto.getDataNascimento());
+        dependente.setNome(updateDependenteDto.getNome());
+        dependente.setGrauParentesco(updateDependenteDto.getGrauParentesco());
         return dependenteMapper.toDependenteDto(dependenteRepository.save(dependente));
+    }
+
+    @Override
+    public List<Dependente> findByAssociado(Long id) {
+        return dependenteRepository.findAllDependentesByAssociado(id);
     }
 
     @Override

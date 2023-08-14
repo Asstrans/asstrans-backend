@@ -47,6 +47,11 @@ public class AssociadoController {
         return ResponseEntity.ok().body(associadoService.findById(id));
     }
 
+    @GetMapping("/{id}/dependentes")
+    public ResponseEntity<?> findAllDependentesByAssociado(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(dependenteService.findByAssociado(id));
+    }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Associado associado) {
         return ResponseEntity.ok().body(associadoService.save(associado));
@@ -64,10 +69,10 @@ public class AssociadoController {
 
     @PutMapping("/{id}/dependente")
     public ResponseEntity<?> updateDependente(@PathVariable Long id, @RequestBody UpdateDependenteDto updateDependenteDto) {
-        return ResponseEntity.ok().body(dependenteService.update(id,updateDependenteDto));
+        return ResponseEntity.ok().body(dependenteService.updateDependente(id,updateDependenteDto));
     }
 
-    @DeleteMapping("/{id}/dependente")
+    @DeleteMapping("/dependentes/{id}")
     public ResponseEntity<?> deleteDependente(@PathVariable Long id) {
         dependenteService.delete(id);
         return ResponseEntity.noContent().build();

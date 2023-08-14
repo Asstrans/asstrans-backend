@@ -34,9 +34,9 @@ public class Associado implements Serializable {
     private String cpf;
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    private Set<Dependente> dependentes = new HashSet<>();
+//    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @Fetch(FetchMode.SUBSELECT)
+//    private Set<Dependente> dependentes = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private ZoneCity zoneCity;
@@ -160,13 +160,6 @@ public class Associado implements Serializable {
         this.limiteTotal = limiteTotal;
     }
 
-    public Set<Dependente> getDependentes() {
-        return dependentes;
-    }
-
-    public void setDependentes(Set<Dependente> dependentes) {
-        this.dependentes = dependentes;
-    }
 
 
 }

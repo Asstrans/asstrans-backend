@@ -1,7 +1,5 @@
 package com.asstrans.agremiados.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +8,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TB_DEPENDENTES")
-@OnDelete(action = OnDeleteAction.CASCADE)
 public class Dependente implements Serializable {
 
     @Id
@@ -27,17 +24,31 @@ public class Dependente implements Serializable {
 
     private Instant createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "associado_id")
+    private Associado associado;
+
+
 
     public Dependente() {
 
     }
 
-    public Dependente(Long id, String nome, String grauParentesco, Date dataNascimento, Instant createdAt) {
+    public Dependente(Long id, String nome, String grauParentesco, Date dataNascimento, Instant createdAt, Associado associado) {
         this.id = id;
         this.nome = nome;
         this.grauParentesco = grauParentesco;
         this.dataNascimento = dataNascimento;
         this.createdAt = createdAt;
+        this.associado = associado;
+    }
+
+    public Associado getAssociado() {
+        return associado;
+    }
+
+    public void setAssociado(Associado associado) {
+        this.associado = associado;
     }
 
     public Long getId() {
