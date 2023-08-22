@@ -25,4 +25,6 @@ public interface AssociadoService {
 
     public void delete(Long id);
 
+    public long count();
+
 }

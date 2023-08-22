@@ -11,5 +11,7 @@ public interface PlanoAssociadoService {
     PlanoAssociado save(PlanoAssociadoDto planoAssociadoDto);
     List<PlanoAssociado> findAll();
 
+    List<PlanoAssociado> findAllByAssociado(Long idAssociado);
+
     PlanoAssociado findPlanoAssociado(Long idAssociado, Long idPlano);
 }

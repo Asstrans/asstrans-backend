@@ -22,4 +22,7 @@ public interface ConvenioService {
 
     public void delete(Long id);
 
+    public long count();
+
+
 }

@@ -68,4 +68,9 @@ public class ConvenioServiceImpl implements ConvenioService {
         convenio.setActive(false);
         convenioRepository.save(convenio);
     }
+
+    @Override
+    public long count() {
+        return convenioRepository.count();
+    }
 }

@@ -36,5 +36,7 @@ public interface RequisicaoService {
 
     public List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
 
+    public long count();
+
 
 }

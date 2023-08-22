@@ -49,6 +49,7 @@ import java.util.Date;
                 "R.VALOR_PARCELA, " +
                 "ASS.ID as id_associado, " +
                 "ASS.NAME as nome_associado, " +
+                "ASS.SALARIO_BASE as salario_associado, " +
                 "CON.ID as id_convenio, " +
                 "CON.FANTASY_NAME as nome_convenio " +
                 "FROM TB_REQUISICOES as R " +
@@ -67,6 +68,7 @@ import java.util.Date;
                         @ColumnResult(name = "valor_parcela", type = Double.class),
                         @ColumnResult(name = "id_associado", type = Long.class),
                         @ColumnResult(name = "nome_associado", type = String.class),
+                        @ColumnResult(name = "salario_associado", type = Double.class),
                         @ColumnResult(name = "id_convenio", type = Long.class),
                         @ColumnResult(name = "nome_convenio", type = String.class),
                 }))

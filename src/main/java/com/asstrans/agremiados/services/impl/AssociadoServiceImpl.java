@@ -98,4 +98,9 @@ public class AssociadoServiceImpl implements AssociadoService {
         associado.setActive(false);
         associadoRepository.save(associado);
     }
+
+    @Override
+    public long count() {
+        return associadoRepository.count();
+    }
 }

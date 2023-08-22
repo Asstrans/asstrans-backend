@@ -18,6 +18,9 @@ public interface PlanoAssociadoRepository extends JpaRepository<PlanoAssociado, 
     @Query(value = "select pa from PlanoAssociado pa")
     public PlanoAssociado findPlanoAssociadoAll();
 
+    @Query(value = "select pa from PlanoAssociado pa where pa.associado.id = ?1")
+    List<PlanoAssociado>  findPlanoAssociadoAllByAssociado(Long idAssociado);
+
 
     //CONSOLIDADA
     @Query(name = "PlanoAssociadosAll" , nativeQuery = true )

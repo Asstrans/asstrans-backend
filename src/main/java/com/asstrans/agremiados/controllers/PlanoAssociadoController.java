@@ -30,6 +30,12 @@ public class PlanoAssociadoController {
         return ResponseEntity.ok().body(planoAssociadoService.findAll());
     }
 
+    @GetMapping("/{id}/planos")
+    public ResponseEntity<?> findAllPlanoAssociadoByAssociado(@PathVariable("id") Long idAssociado) {
+        return ResponseEntity.ok().body(planoAssociadoService.findAllByAssociado(idAssociado));
+    }
+
+
     @GetMapping("/associado/{idAssociado}/plano/{idPlano}")
     public ResponseEntity<?> verifyPlanoAssociado(@PathVariable("idAssociado") Long idAssociado, @PathVariable("idPlano") Long idPlano) {
         return ResponseEntity.ok().body(planoAssociadoService.findPlanoAssociado(idAssociado, idPlano));

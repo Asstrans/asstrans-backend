@@ -17,6 +17,5 @@ public interface PlanoService {
     public List<Plano> findAll();
     public Page<Plano> findAll(Pageable pageable);
     public Page<Plano> findAllIgnoreCase(String search, Pageable pageable);
-
-
+    public long count();
 }

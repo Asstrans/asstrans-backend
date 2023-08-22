@@ -81,4 +81,9 @@ public class PlanoServiceImpl implements PlanoService {
     public Page<Plano> findAllIgnoreCase(String search, Pageable pageable) {
         return planoRepository.findAllSearchIgnoreCase(search, pageable);
     }
+
+    @Override
+    public long count() {
+        return planoRepository.count();
+    }
 }

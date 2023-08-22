@@ -49,6 +49,11 @@ public class PlanoAssociadoImpl implements PlanoAssociadoService {
     }
 
     @Override
+    public List<PlanoAssociado> findAllByAssociado(Long idAssociado) {
+        return planoAssociadoRepository.findPlanoAssociadoAllByAssociado(idAssociado);
+    }
+
+    @Override
     public PlanoAssociado findPlanoAssociado(Long idAssociado, Long idPlano) {
         var planoAssociado = planoAssociadoRepository.findPlanoAssociado(idAssociado, idPlano);
         return  planoAssociado;

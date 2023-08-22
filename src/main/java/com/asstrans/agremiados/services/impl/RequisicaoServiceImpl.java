@@ -200,4 +200,9 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         return this.requisicaoRepository.reportNormalTotal(mes);
     }
 
+    @Override
+    public long count() {
+        return  requisicaoRepository.count();
+    }
+
 }
