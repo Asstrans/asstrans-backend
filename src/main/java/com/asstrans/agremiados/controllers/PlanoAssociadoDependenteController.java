@@ -2,6 +2,7 @@ package com.asstrans.agremiados.controllers;
 
 import com.asstrans.agremiados.dto.PlanoAssociadoDependenteDto;
 import com.asstrans.agremiados.dto.PlanoAssociadoDto;
+import com.asstrans.agremiados.repositories.PlanoAssociadoDependenteRepository;
 import com.asstrans.agremiados.services.PlanoAssociadoDependenteService;
 import com.asstrans.agremiados.services.PlanoAssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class PlanoAssociadoDependenteController {
 
     @Autowired
     private PlanoAssociadoDependenteService planoAssociadoDependenteService;
+
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PlanoAssociadoDependenteDto planoAssociadoDependenteDto) {
         return ResponseEntity.ok().body(planoAssociadoDependenteService.save(planoAssociadoDependenteDto));
@@ -30,4 +33,7 @@ public class PlanoAssociadoDependenteController {
     public ResponseEntity<?> verifyPlanoAssociado(@PathVariable("idPlanoAssociado") Long idPlanoAssociado, @PathVariable("idDependente") Long idDependente) {
         return ResponseEntity.ok().body(planoAssociadoDependenteService.verifyPlanoAssociadoDependente(idPlanoAssociado, idDependente));
     }
+
+
+
 }

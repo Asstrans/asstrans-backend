@@ -5,6 +5,7 @@ import com.asstrans.agremiados.dto.ParcelaBaixaDto;
 import com.asstrans.agremiados.dto.ReprovarRequisicaoDto;
 import com.asstrans.agremiados.dto.RequisicaoDto;
 import com.asstrans.agremiados.model.Requisicao;
+import com.asstrans.agremiados.repositories.PlanoAssociadoDependenteRepository;
 import com.asstrans.agremiados.repositories.PlanoAssociadoRepository;
 import com.asstrans.agremiados.repositories.RequisicaoRepository;
 import com.asstrans.agremiados.services.RequisicaoService;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/requisicoes")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class RequisicaoController {
+
+    @Autowired
+    private PlanoAssociadoDependenteRepository planoAssociadoDependenteRepository;
 
     @Autowired
     private RequisicaoService requisicaoService;
@@ -119,5 +123,10 @@ public class RequisicaoController {
     @GetMapping("/consolidada/requisicoes-mes-associados")
     public ResponseEntity<?> reportConsolidadaMesAssociado(@RequestParam(value = "mes", required = false) int mes){
         return  ResponseEntity.ok().body(requisicaoRepository.reportConsolidadaMesAssociado(mes));
+    }
+
+    @GetMapping("/consolidada/planos-associados-dependentes")
+    public ResponseEntity<?> reportPlanosAssociadosDependentes(){
+        return  ResponseEntity.ok().body(planoAssociadoDependenteRepository.reportPlanosAssociadosDependentesAll());
     }
 }
