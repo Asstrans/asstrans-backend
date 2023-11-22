@@ -4,6 +4,7 @@ import com.asstrans.agremiados.dto.AssociadoDto;
 import com.asstrans.agremiados.dto.UpdateDependenteDto;
 import com.asstrans.agremiados.model.Associado;
 import com.asstrans.agremiados.model.Dependente;
+import com.asstrans.agremiados.repositories.AssociadoRepository;
 import com.asstrans.agremiados.services.AssociadoService;
 import com.asstrans.agremiados.services.DependenteService;
 import com.asstrans.agremiados.specification.SpecificationTemplate;
@@ -16,6 +17,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/associados")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -25,7 +28,15 @@ public class AssociadoController {
     private AssociadoService associadoService;
 
     @Autowired
+    private AssociadoRepository associadoRepository;
+
+    @Autowired
     private DependenteService dependenteService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Associado>> findAllAssociados() {
+        return ResponseEntity.ok().body(associadoRepository.findAll());
+    }
 
     @GetMapping
     public ResponseEntity<Page<Associado>> findAll(
