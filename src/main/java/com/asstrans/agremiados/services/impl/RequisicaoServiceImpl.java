@@ -181,23 +181,23 @@ public class RequisicaoServiceImpl implements RequisicaoService {
     }
 
     @Transactional(readOnly = false)
-    public List<Requisicao> reportUnificada(int mes) {
-        return this.requisicaoRepository.reportUnificada(mes);
+    public List<Requisicao> reportUnificada(int mes, int ano) {
+        return this.requisicaoRepository.reportUnificada(mes, ano);
     }
 
     @Transactional(readOnly = false)
-    public List<RequisicaoTotal> reportUnificadaTotal(int mes) {
-        return this.requisicaoRepository.reportUnificadaTotal(mes);
+    public List<RequisicaoTotal> reportUnificadaTotal(int mes, int ano) {
+        return this.requisicaoRepository.reportUnificadaTotal(mes, ano);
     }
 
     @Transactional(readOnly = false)
-    public List<Requisicao> reportNormal(int mes) {
-        return this.requisicaoRepository.reportNormal(mes);
+    public List<Requisicao> reportNormal(int mes, int ano) {
+        return this.requisicaoRepository.reportNormal(mes, ano);
     }
 
     @Transactional(readOnly = false)
-    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes) {
-        return this.requisicaoRepository.reportNormalTotal(mes);
+    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes, int ano) {
+        return this.requisicaoRepository.reportNormalTotal(mes, ano);
     }
 
     @Override

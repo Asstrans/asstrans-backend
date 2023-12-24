@@ -28,22 +28,22 @@ public interface RequisicaoRepository extends JpaRepository<Requisicao, Long> {
     Page<Requisicao> findAllByConvenio(Long idConvenio, Pageable pageable);
 
     //REPORT UNIFICADA
-    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 order by req.associado.id")
-    List<Requisicao> reportUnificada(int mes);
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 and DATE_PART('YEAR', req.dataRequisicao) = ?2 order by req.associado.id")
+    List<Requisicao> reportUnificada(int mes, int ano);
     @Query(name = "RequisicaoSumTotal" , nativeQuery = true )
-    List<RequisicaoTotal> reportUnificadaTotal(int mes);
+    List<RequisicaoTotal> reportUnificadaTotal(int mes, int ano);
 
     //REPORT NORMAL
-    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 order by req.convenio.id")
-    List<Requisicao> reportNormal(int mes);
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 and DATE_PART('YEAR', req.dataRequisicao) = ?2 order by req.convenio.id")
+    List<Requisicao> reportNormal(int mes, int ano);
 
     @Query(name = "RequisicaoConvenioSumTotal" , nativeQuery = true )
-    List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
+    List<RequisicaoConvenioTotal> reportNormalTotal(int mes, int ano);
 
 
     //CONSOLIDADA
     @Query(name = "RequisicaoMesAssociados" , nativeQuery = true )
-    List<RequisicaoMesAssociado> reportConsolidadaMesAssociado(int mes);
+    List<RequisicaoMesAssociado> reportConsolidadaMesAssociado(int mes, int ano);
 
 
 

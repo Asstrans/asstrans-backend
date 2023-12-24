@@ -97,21 +97,25 @@ public class RequisicaoController {
 
     //REPORT
     @GetMapping("/unificada")
-    public ResponseEntity<?> reportUnificada(@RequestParam(value = "mes", required = false) int mes){
-        return  ResponseEntity.ok().body(requisicaoService.reportUnificada(mes));
+    public ResponseEntity<?> reportUnificada(@RequestParam(value = "mes", required = false) int mes,
+                                             @RequestParam(value = "ano", required = false)  int ano){
+        return  ResponseEntity.ok().body(requisicaoService.reportUnificada(mes, ano));
     }
     @GetMapping("/unificada/total")
-    public ResponseEntity<?> reportUnificadaTotal(@RequestParam(value = "mes", required = false) int mes){
-        return  ResponseEntity.ok().body(requisicaoService.reportUnificadaTotal(mes));
+    public ResponseEntity<?> reportUnificadaTotal(@RequestParam(value = "mes", required = false) int mes,
+                                                  @RequestParam(value = "ano", required = false)  int ano){
+        return  ResponseEntity.ok().body(requisicaoService.reportUnificadaTotal(mes, ano));
     }
 
     @GetMapping("/normal")
-    public ResponseEntity<?> reportNormal(@RequestParam(value = "mes", required = false) int mes){
-        return  ResponseEntity.ok().body(requisicaoService.reportNormal(mes));
+    public ResponseEntity<?> reportNormal(@RequestParam(value = "mes", required = false) int mes,
+                                          @RequestParam(value = "ano", required = false)  int ano){
+        return  ResponseEntity.ok().body(requisicaoService.reportNormal(mes, ano));
     }
     @GetMapping("/normal/total")
-    public ResponseEntity<?> reportNormalTotal(@RequestParam(value = "mes", required = false) int mes){
-        return  ResponseEntity.ok().body(requisicaoService.reportNormalTotal(mes));
+    public ResponseEntity<?> reportNormalTotal(@RequestParam(value = "mes", required = false) int mes,
+                                               @RequestParam(value = "ano", required = false)  int ano){
+        return  ResponseEntity.ok().body(requisicaoService.reportNormalTotal(mes, ano));
     }
 
     //UNIFICADA
@@ -121,8 +125,9 @@ public class RequisicaoController {
     }
 
     @GetMapping("/consolidada/requisicoes-mes-associados")
-    public ResponseEntity<?> reportConsolidadaMesAssociado(@RequestParam(value = "mes", required = false) int mes){
-        return  ResponseEntity.ok().body(requisicaoRepository.reportConsolidadaMesAssociado(mes));
+    public ResponseEntity<?> reportConsolidadaMesAssociado(@RequestParam(value = "mes", required = false) int mes,
+                                                           @RequestParam(value = "ano", required = false)  int ano){
+        return  ResponseEntity.ok().body(requisicaoRepository.reportConsolidadaMesAssociado(mes, ano));
     }
 
     @GetMapping("/consolidada/planos-associados-dependentes")

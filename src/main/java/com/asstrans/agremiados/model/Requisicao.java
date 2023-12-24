@@ -15,7 +15,7 @@ import java.util.Date;
 //UNIFICADA
 @NamedNativeQuery(
         name = "RequisicaoSumTotal",
-        query = "SELECT TB_REQUISICOES.ASSOCIADO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 GROUP BY TB_REQUISICOES.ASSOCIADO_ID",
+        query = "SELECT TB_REQUISICOES.ASSOCIADO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 and DATE_PART('Year',TB_REQUISICOES.DATA_REQUISICAO) = ?2  GROUP BY TB_REQUISICOES.ASSOCIADO_ID",
         resultSetMapping = "RequisicaoTotal"
 )
 @SqlResultSetMapping(
@@ -29,7 +29,7 @@ import java.util.Date;
 //NORMAL
 @NamedNativeQuery(
         name = "RequisicaoConvenioSumTotal",
-        query = "SELECT TB_REQUISICOES.CONVENIO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 GROUP BY TB_REQUISICOES.CONVENIO_ID",
+        query = "SELECT TB_REQUISICOES.CONVENIO_ID, SUM(TB_REQUISICOES.VALOR_PARCELA) as total FROM TB_REQUISICOES WHERE DATE_PART('Month',TB_REQUISICOES.DATA_REQUISICAO) = ?1 and DATE_PART('Year',TB_REQUISICOES.DATA_REQUISICAO) = ?2  GROUP BY TB_REQUISICOES.CONVENIO_ID",
         resultSetMapping = "RequisicaoConvenioTotal"
 )
 @SqlResultSetMapping(
@@ -55,7 +55,8 @@ import java.util.Date;
                 "FROM TB_REQUISICOES as R " +
                 "INNER JOIN TB_ASSOCIADOS as ASS ON R.ASSOCIADO_ID = ASS.ID " +
                 "INNER JOIN TB_CONVENIOS as CON ON R.CONVENIO_ID = CON.ID " +
-                "WHERE DATE_PART('Month',R.DATA_REQUISICAO) = ?1",
+                "WHERE DATE_PART('Month',R.DATA_REQUISICAO) = ?1 AND " +
+                "DATE_PART('Year',R.DATA_REQUISICAO) = ?2",
         resultSetMapping = "RequisicaoMesResult"
 )
 @SqlResultSetMapping(

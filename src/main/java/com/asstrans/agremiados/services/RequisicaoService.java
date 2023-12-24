@@ -28,13 +28,13 @@ public interface RequisicaoService {
     Page<Requisicao> findAll(Pageable pageable);
 
     //REPORT
-    public List<Requisicao> reportUnificada(int mes);
-    public List<RequisicaoTotal> reportUnificadaTotal(int mes);
+    public List<Requisicao> reportUnificada(int mes, int ano);
+    public List<RequisicaoTotal> reportUnificadaTotal(int mes, int ano);
 
     //NORMAL
-    public List<Requisicao> reportNormal(int mes);
+    public List<Requisicao> reportNormal(int mes, int ano);
 
-    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes);
+    public List<RequisicaoConvenioTotal> reportNormalTotal(int mes, int ano);
 
     public long count();
 
