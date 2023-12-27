@@ -153,7 +153,17 @@ public class RequisicaoServiceImpl implements RequisicaoService {
        final var total = getValorParcelaRequisicoes(requisicoes);
 
        requisicao.setParcelaAtual(""+1+"/"+parcelas.size());
-       requisicao.setDataRequisicao(Calendar.getInstance().getTime());
+
+       Calendar calendar = Calendar.getInstance();
+        int mesAtual = calendar.get(Calendar.MONTH);
+        requisicao.setDataRequisicao(calendar.getTime());
+        if (mesAtual == Calendar.DECEMBER) {
+            calendar.add(Calendar.MONTH, 1);
+        }
+        var dataReferencia = calendar.getTime();
+        requisicao.setDataReferencia(dataReferencia);
+
+
        requisicao.setStatus(StatusRequisicao.ABERTA);
        associado.get().setLimiteUtilizado(associado.get().getLimiteUtilizado().add(total.add(requisicao.getValorParcela())));
     }
@@ -164,6 +174,7 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         final var requisicao = requisicaoRepository.findById(id).get();
         requisicao.setStatus(StatusRequisicao.CANCELADA);
     }
+
     private BigDecimal getValorParcelaRequisicoes(List<Requisicao> requisicoes){
          var valor = new BigDecimal(0);
         for (Requisicao requisicao: requisicoes) {
@@ -171,6 +182,7 @@ public class RequisicaoServiceImpl implements RequisicaoService {
         }
         return valor;
     }
+
     private List<Parcela> gerarParcelas(Long quantidadeParcelas, BigDecimal valorParcela, Requisicao requisicao) {
         final var listParcelas = new ArrayList<Parcela>();
         int mesAtual = DataUtils.getMesAtual();

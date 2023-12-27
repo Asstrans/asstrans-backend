@@ -7,7 +7,7 @@ public enum ZoneCity {
     OESTE,
     CENTRO_SUL,
     DOT,
-    SED,
+    SEDE,
     OUTROS
 
 

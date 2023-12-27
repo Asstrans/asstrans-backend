@@ -40,6 +40,11 @@ public class RequisicaoController {
         return ResponseEntity.ok().body(requisicaoService.save(requisicaoDto));
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> findAllRequisicoesCount() {
+        return ResponseEntity.ok().body(requisicaoRepository.count());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         return  ResponseEntity.ok().body(requisicaoService.findById(id));

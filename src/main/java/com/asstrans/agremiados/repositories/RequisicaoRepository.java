@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface RequisicaoRepository extends JpaRepository<Requisicao, Long> {
 
-    @Query("SELECT req from Requisicao req where req.status = 'ABERTO' and req.associado.id = ?1")
+    @Query("SELECT req from Requisicao req where req.status = 'ABERTA' and req.associado.id = ?1")
     List<Requisicao> findRequisicoesByAssociado(Long idAssociado);
 
     @Query("SELECT req from Requisicao req where req.associado.id = ?1 and req.convenio.id = ?2")
@@ -28,13 +28,13 @@ public interface RequisicaoRepository extends JpaRepository<Requisicao, Long> {
     Page<Requisicao> findAllByConvenio(Long idConvenio, Pageable pageable);
 
     //REPORT UNIFICADA
-    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 and DATE_PART('YEAR', req.dataRequisicao) = ?2 order by req.associado.id")
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataReferencia) = ?1 and DATE_PART('YEAR', req.dataReferencia) = ?2 order by req.associado.id")
     List<Requisicao> reportUnificada(int mes, int ano);
     @Query(name = "RequisicaoSumTotal" , nativeQuery = true )
     List<RequisicaoTotal> reportUnificadaTotal(int mes, int ano);
 
     //REPORT NORMAL
-    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataRequisicao) = ?1 and DATE_PART('YEAR', req.dataRequisicao) = ?2 order by req.convenio.id")
+    @Query("SELECT req FROM Requisicao req WHERE DATE_PART('MONTH', req.dataReferencia) = ?1 and DATE_PART('YEAR', req.dataReferencia) = ?2 order by req.convenio.id")
     List<Requisicao> reportNormal(int mes, int ano);
 
     @Query(name = "RequisicaoConvenioSumTotal" , nativeQuery = true )

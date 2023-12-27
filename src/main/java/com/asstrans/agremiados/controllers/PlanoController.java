@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class PlanoController {
     @Autowired
     private PlanoService planoService;
+
+
+    @GetMapping("/count")
+    public ResponseEntity<?> findAllPlanosCount() {
+        return ResponseEntity.ok().body(planoService.count());
+    }
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PlanoDto planoDto) {
         return ResponseEntity.ok().body(planoService.save(planoDto));

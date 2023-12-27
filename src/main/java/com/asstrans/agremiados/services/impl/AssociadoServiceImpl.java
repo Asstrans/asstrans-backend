@@ -7,8 +7,10 @@ import com.asstrans.agremiados.model.Associado;
 
 import com.asstrans.agremiados.model.Convenio;
 import com.asstrans.agremiados.model.Dependente;
+import com.asstrans.agremiados.model.Requisicao;
 import com.asstrans.agremiados.repositories.AssociadoRepository;
 import com.asstrans.agremiados.repositories.DependenteRepository;
+import com.asstrans.agremiados.repositories.RequisicaoRepository;
 import com.asstrans.agremiados.services.AssociadoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,13 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class AssociadoServiceImpl implements AssociadoService {
+
+    @Autowired
+    private RequisicaoRepository requisicaoRepository;
 
     @Autowired
     private AssociadoRepository associadoRepository;
@@ -59,8 +65,6 @@ public class AssociadoServiceImpl implements AssociadoService {
     }
 
 
-
-
     @Transactional()
     @Override
     public Associado save(Associado associado) {
@@ -82,12 +86,26 @@ public class AssociadoServiceImpl implements AssociadoService {
         return  associado;
     }
 
+    private BigDecimal getValorParcelaRequisicoes(List<Requisicao> requisicoes){
+        var valor = new BigDecimal(0);
+        for (Requisicao requisicao: requisicoes) {
+            valor = valor.add(requisicao.getValorParcela());
+        }
+        return valor;
+    }
+
     @Transactional()
     @Override
     public AssociadoDto update(Long id, AssociadoDto associadoDto) {
         Associado associado = associadoRepository.getReferenceById(id);
+        final var requisicoes = requisicaoRepository.findRequisicoesByAssociado(associado.getId());
+        final var total = getValorParcelaRequisicoes(requisicoes);
+
         associadoDto.setId(associado.getId());
         associado = associadoMapper.toAssociado(associadoDto);
+        associado.setLimiteTotal(associado.getSalarioBase()
+                .multiply(new BigDecimal(0.3)).setScale(2, RoundingMode.HALF_UP));
+        associado.setLimiteUtilizado(associado.getLimiteUtilizado().add(total));
         return associadoMapper.toAssociadoDto(associadoRepository.save(associado));
     }
 

@@ -21,6 +21,11 @@ public class ConvenioController {
     @Autowired
     private ConvenioService convenioService;
 
+    @GetMapping("/count")
+    public ResponseEntity<?> findAllConveniosCount() {
+        return ResponseEntity.ok().body(convenioService.count());
+    }
+
     @GetMapping
     public ResponseEntity<Page<Convenio>> findAll(@RequestParam("fantasyName") String fantasyName,
                                                   @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable pageable) {

@@ -38,6 +38,11 @@ public class AssociadoController {
         return ResponseEntity.ok().body(associadoRepository.findAll());
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> findAllAssociadosCount() {
+        return ResponseEntity.ok().body(associadoRepository.count());
+    }
+
     @GetMapping
     public ResponseEntity<Page<Associado>> findAll(
                                                   @RequestParam(value = "search", required = false) String search,

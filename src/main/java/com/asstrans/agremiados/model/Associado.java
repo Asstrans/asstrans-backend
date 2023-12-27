@@ -46,7 +46,7 @@ public class Associado implements Serializable {
 
     private BigDecimal limiteTotal;
 
-    private BigDecimal limiteUtilizado;
+    private BigDecimal limiteUtilizado = new BigDecimal(0);
 
     private Boolean isActive;
 
